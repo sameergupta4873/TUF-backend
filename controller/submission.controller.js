@@ -65,6 +65,7 @@ const submissionController = {
         try {
             const { id } = req.params
             const [rows, fields] = await pool.query("delete from code_submissions where id = ?", [id])
+            setCache("submissions-all", null)
             res.json({
                 status: "success",
             })
@@ -78,6 +79,7 @@ const submissionController = {
     deleteAll: async (req, res) => {
         try {
             const [rows, fields] = await pool.query("delete from code_submissions")
+            setCache("submissions-all", null)
             res.json({
                 status: "success",
             })
