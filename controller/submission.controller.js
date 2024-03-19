@@ -34,6 +34,7 @@ const submissionController = {
         try {
             const { username, source_code, language, stdin} = req.body
             const [rows, fields] = await pool.query("insert into code_submissions (username, source_code, language, stdin) values (?, ?, ?, ?)", [username, source_code, language, stdin])
+            setCache("submissions-all", null)
             res.json({
                 status: "success",
             })
@@ -49,6 +50,7 @@ const submissionController = {
             const { id } = req.params
             const { username, source_code, language, stdin} = req.body
             const [rows, fields] = await pool.query("update code_submissions set username = ?, source_code = ?, language = ?, stdin = ? where id = ?", [username, source_code, language, stdin, id])
+            setCache("submissions-all", null)
             res.json({
                 status: "success",
             })
