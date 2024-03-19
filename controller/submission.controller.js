@@ -1,9 +1,11 @@
 const pool = require("../database/index")
+const { setCache } = require("../redis")
 
 const submissionController = {
     getAll: async (req, res) => {
         try {
             const [rows, fields] = await pool.query("select * from code_submissions")
+            setCache("submissions-all", rows)
             res.json({
                 data: rows
             })
