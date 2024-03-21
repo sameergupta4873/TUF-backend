@@ -10,5 +10,6 @@ router.post("/", submissionController.create)
 router.put("/:id", submissionController.update)
 router.delete("/:id", submissionController.delete)
 router.delete("/", submissionController.deleteAll)
+router.post("/run", submissionController.compileCode)
 
 module.exports = router
